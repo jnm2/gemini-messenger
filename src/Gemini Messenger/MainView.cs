@@ -18,6 +18,21 @@ public partial class MainView : Form
         requestTextBox.Select(21, 0);
     }
 
+    private void MainView_Shown(object sender, EventArgs e)
+    {
+        using var keySelectionView = new KeySelectionView();
+
+        if (keySelectionView.ShowDialog(owner: this) != DialogResult.OK)
+        {
+            Close();
+            return;
+        }
+
+        client = new(keySelectionView.ApiKey, keySelectionView.ApiSecret);
+
+        Text = $"Gemini Messenger ({keySelectionView.ApiKey})";
+    }
+
     private async void SendButton_Click(object sender, EventArgs e)
     {
         requestTextBox.Enabled = false;
@@ -35,20 +50,5 @@ public partial class MainView : Form
             sendButton.Enabled = true;
             UseWaitCursor = false;
         }
-    }
-
-    private void MainView_Shown(object sender, EventArgs e)
-    {
-        using var keySelectionView = new KeySelectionView();
-
-        if (keySelectionView.ShowDialog(owner: this) != DialogResult.OK)
-        {
-            Close();
-            return;
-        }
-
-        client = new(keySelectionView.ApiKey, keySelectionView.ApiSecret);
-
-        Text = $"Gemini Messenger ({keySelectionView.ApiKey})";
     }
 }
