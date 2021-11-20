@@ -6,6 +6,8 @@ public static class Program
     public static void Main()
     {
         ApplicationConfiguration.Initialize();
-        Application.Run(new MainView());
+
+        new MainView().Show();
+        Application.Run();
     }
 }

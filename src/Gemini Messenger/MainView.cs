@@ -18,19 +18,28 @@ public partial class MainView : Form
         requestTextBox.Select(21, 0);
     }
 
+    private MainView(GeminiClient existingClient, string initialRequest) : this()
+    {
+        client = existingClient;
+        requestTextBox.Text = initialRequest;
+    }
+
     private void MainView_Shown(object sender, EventArgs e)
     {
-        using var keySelectionView = new KeySelectionView();
-
-        if (keySelectionView.ShowDialog(owner: this) != DialogResult.OK)
+        if (client is null)
         {
-            Close();
-            return;
+            using var keySelectionView = new KeySelectionView();
+
+            if (keySelectionView.ShowDialog(owner: this) != DialogResult.OK)
+            {
+                Close();
+                return;
+            }
+
+            client = new(keySelectionView.ApiKey, keySelectionView.ApiSecret);
+
+            Text = $"Gemini Messenger ({keySelectionView.ApiKey})";
         }
-
-        client = new(keySelectionView.ApiKey, keySelectionView.ApiSecret);
-
-        Text = $"Gemini Messenger ({keySelectionView.ApiKey})";
     }
 
     private async void SendButton_Click(object sender, EventArgs e)
@@ -50,5 +59,20 @@ public partial class MainView : Form
             sendButton.Enabled = true;
             UseWaitCursor = false;
         }
+    }
+
+    private void DuplicateWindowButton_Click(object sender, EventArgs e)
+    {
+        var newWindow = new MainView(
+            existingClient: client!,
+            initialRequest: requestTextBox.Text) { Text = Text };
+
+        newWindow.Show();
+    }
+
+    private void MainView_FormClosed(object sender, FormClosedEventArgs e)
+    {
+        if (Application.OpenForms.Count == 0)
+            Application.Exit();
     }
 }

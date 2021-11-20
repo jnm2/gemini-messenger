@@ -32,6 +32,7 @@
             this.requestTextBox = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.sendButton = new System.Windows.Forms.Button();
+            this.duplicateWindowButton = new System.Windows.Forms.Button();
             this.responseTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -75,6 +76,7 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.sendButton);
+            this.flowLayoutPanel1.Controls.Add(this.duplicateWindowButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -85,7 +87,6 @@
             // 
             // sendButton
             // 
-            this.sendButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.sendButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.sendButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.sendButton.Location = new System.Drawing.Point(23, 15);
@@ -95,6 +96,17 @@
             this.sendButton.Text = "Send";
             this.sendButton.UseVisualStyleBackColor = true;
             this.sendButton.Click += new System.EventHandler(this.SendButton_Click);
+            // 
+            // duplicateWindowButton
+            // 
+            this.duplicateWindowButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.duplicateWindowButton.Location = new System.Drawing.Point(123, 15);
+            this.duplicateWindowButton.Name = "duplicateWindowButton";
+            this.duplicateWindowButton.Size = new System.Drawing.Size(114, 29);
+            this.duplicateWindowButton.TabIndex = 1;
+            this.duplicateWindowButton.Text = "New window";
+            this.duplicateWindowButton.UseVisualStyleBackColor = true;
+            this.duplicateWindowButton.Click += new System.EventHandler(this.DuplicateWindowButton_Click);
             // 
             // responseTextBox
             // 
@@ -116,6 +128,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "MainView";
             this.Text = "Gemini Messenger";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainView_FormClosed);
             this.Shown += new System.EventHandler(this.MainView_Shown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -135,5 +148,6 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private Button sendButton;
         private TextBox responseTextBox;
+        private Button duplicateWindowButton;
     }
 }
