@@ -51,10 +51,12 @@
             // 
             this.splitContainer1.Panel1.Controls.Add(this.requestTextBox);
             this.splitContainer1.Panel1.Controls.Add(this.flowLayoutPanel1);
+            this.splitContainer1.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.responseTextBox);
+            this.splitContainer1.Panel2.Cursor = System.Windows.Forms.Cursors.Default;
             this.splitContainer1.Size = new System.Drawing.Size(1347, 831);
             this.splitContainer1.SplitterDistance = 674;
             this.splitContainer1.TabIndex = 1;
