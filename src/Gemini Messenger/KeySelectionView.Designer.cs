@@ -84,6 +84,7 @@
             // useButton
             // 
             this.useButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.useButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.useButton.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.useButton.Location = new System.Drawing.Point(374, 172);
             this.useButton.Margin = new System.Windows.Forms.Padding(0);
@@ -97,6 +98,7 @@
             // exitButton
             // 
             this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.exitButton.Location = new System.Drawing.Point(492, 172);
             this.exitButton.Margin = new System.Windows.Forms.Padding(0);
             this.exitButton.Name = "exitButton";
