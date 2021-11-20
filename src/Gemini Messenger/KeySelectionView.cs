@@ -21,7 +21,7 @@ public partial class KeySelectionView : Form
             return;
         }
 
-        if (!apiKeyTextBox.Text.AsSpan()[1..^1].Contains('-'))
+        if (apiKeyTextBox.Text.Length < 20 || !apiKeyTextBox.Text.AsSpan()[1..^1].Contains('-'))
         {
             MessageBox.Show(owner: this, "The Gemini API key is not in a recognized format.", caption: Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
