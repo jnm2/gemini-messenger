@@ -45,7 +45,7 @@ internal sealed class GeminiClient : IDisposable
         if (endPoint[0] != '/')
             return Result.Error("The \"request\" property value must begin with a forward slash (/).");
 
-        json["nonce"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        json["nonce"] ??= DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
         var payload = Convert.ToBase64String(Encoding.UTF8.GetBytes(json.ToJsonString()));
         var signature = Convert.ToHexString(HMACSHA384.HashData(key: apiSecret.Span, source: Encoding.ASCII.GetBytes(payload)));
