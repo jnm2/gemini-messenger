@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Nodes;
 
 namespace Gemini_Messenger;
@@ -26,14 +27,23 @@ internal sealed class GeminiClient : IDisposable
 
     public void Dispose() => httpClient.Dispose();
 
-    public async Task<string> SendAsync(string message)
+    public async Task<Result<string>> SendAsync(string message)
     {
-        var json = JsonNode.Parse(message);
-
-        if ((string?)json?["request"] is not { } endPoint)
+        JsonNode? json;
+        try
         {
-            throw new NotImplementedException("Error handling");
+            json = JsonNode.Parse(message, documentOptions: new() { AllowTrailingCommas = true });
         }
+        catch (JsonException ex)
+        {
+            return Result.Error("The message is not valid JSON. " + ex.Message);
+        }
+
+        if ((string?)json?["request"] is not { Length: > 0 } endPoint)
+            return Result.Error("Please specify the \"request\" property.");
+
+        if (endPoint[0] != '/')
+            return Result.Error("The \"request\" property value must begin with a forward slash (/).");
 
         json["nonce"] = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
@@ -45,6 +55,6 @@ internal sealed class GeminiClient : IDisposable
         request.Headers.Add("X-GEMINI-SIGNATURE", signature);
 
         using var response = await httpClient.SendAsync(request);
-        return await response.Content.ReadAsStringAsync();
+        return Result.Success(await response.Content.ReadAsStringAsync());
     }
 }

@@ -50,8 +50,13 @@ public partial class MainView : Form
         try
         {
             var response = await client!.SendAsync(requestTextBox.Text);
+            if (response.IsError(out var message))
+            {
+                MessageBox.Show(owner: this, message, caption: Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            responseTextBox.Text = JsonNode.Parse(response)!.ToJsonString(new JsonSerializerOptions { WriteIndented = true });
+            responseTextBox.Text = JsonNode.Parse(response.Value)!.ToJsonString(new JsonSerializerOptions { WriteIndented = true });
         }
         finally
         {
